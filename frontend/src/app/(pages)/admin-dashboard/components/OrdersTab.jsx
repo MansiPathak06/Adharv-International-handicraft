@@ -1,17 +1,21 @@
 import { useState, useEffect } from "react";
-import { Package } from "lucide-react";
+import { Package, User, X, MapPin, Phone, Mail, Calendar } from "lucide-react";
 
 export default function OrdersTab() {
   const [orders, setOrders] = useState([]);
   const [ordersLoading, setOrdersLoading] = useState(true);
   const [ordersMessage, setOrdersMessage] = useState("");
+  
+  // New state for user details modal
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [showUserModal, setShowUserModal] = useState(false);
 
   useEffect(() => {
     async function fetchOrders() {
       setOrdersLoading(true);
       const res = await fetch("http://localhost:5000/api/orders");
       const data = await res.json();
-      console.log("Orders data:", data); // Debug log to see actual structure
+      console.log("Orders data:", data);
       setOrders(data.orders || []);
       setOrdersLoading(false);
     }
@@ -33,6 +37,18 @@ export default function OrdersTab() {
     } catch (error) {
       console.error("Status update failed", error);
     }
+  };
+
+  // New function to open user details modal
+  const openUserDetails = (order) => {
+    setSelectedUser(order);
+    setShowUserModal(true);
+  };
+
+  // Close modal
+  const closeUserModal = () => {
+    setShowUserModal(false);
+    setSelectedUser(null);
   };
 
   // Helper function to calculate total quantity
@@ -90,7 +106,6 @@ export default function OrdersTab() {
           </thead>
           <tbody>
             {orders.map((order, index) => {
-              // Parse items - might be JSON string
               let parsedItems = [];
               try {
                 parsedItems = typeof order.items === 'string' 
@@ -101,18 +116,10 @@ export default function OrdersTab() {
                 parsedItems = [];
               }
 
-              // Get username - try multiple possible field names
-              const username = order.username || order.user_name || order.userName || 
-                             order.user?.name || order.user?.username || "N/A";
-              
-              // Get email - try multiple possible field names
-              const useremail = order.useremail || order.user_email || order.userEmail || 
-                               order.user?.email || order.email || "N/A";
+              const username = order.contact_name || order.username || order.user_name || order.userName || order.user?.name || "N/A";
+              const useremail = order.contact_email || order.useremail || order.user_email || order.userEmail || order.user?.email || "N/A";
 
-              // Format date properly - try multiple date field names
-              const dateValue = order.created_at || order.createdAt || order.createdat || 
-                               order.order_date || order.date;
-              
+              const dateValue = order.created_at || order.createdAt || order.createdat || order.order_date || order.date;
               let formattedDate = "N/A";
               if (dateValue) {
                 try {
@@ -129,7 +136,6 @@ export default function OrdersTab() {
                 }
               }
 
-              // Calculate total quantity
               const totalQuantity = getTotalQuantity(parsedItems);
 
               return (
@@ -144,35 +150,29 @@ export default function OrdersTab() {
                     </span>
                   </td>
                   <td className="p-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gradient-to-br from-[#562D1D] to-[#B8860B] rounded-full flex items-center justify-center text-white font-bold shadow-md">
+                    <div 
+                      className="flex items-center gap-3 cursor-pointer hover:bg-blue-50 p-2 rounded-lg transition-all duration-200 group"
+                      onClick={() => openUserDetails(order)}
+                    >
+                      <div className="w-10 h-10 bg-gradient-to-br from-[#562D1D] to-[#B8860B] rounded-full flex items-center justify-center text-white font-bold shadow-md group-hover:scale-105 transition-transform">
                         {username !== "N/A" ? username.charAt(0).toUpperCase() : "U"}
                       </div>
                       <div>
-                        <div className="font-semibold text-gray-800">
+                        <div className="font-semibold text-gray-800 hover:text-[#562D1D] transition-colors">
                           {username}
                         </div>
+                      
                         <div className="text-xs text-gray-500">
                           {useremail}
                         </div>
+                        <br/> 
+                          <p className="text-xs italic text-gray-500">Click here to see full details.</p>
                       </div>
                     </div>
                   </td>
                   <td className="p-4">
                     <div className="flex items-center gap-2">
-                      <svg
-                        className="w-4 h-4 text-gray-400"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                        />
-                      </svg>
+                      <Calendar className="w-4 h-4 text-gray-400" />
                       <span className="text-gray-700 font-medium">
                         {formattedDate}
                       </span>
@@ -195,9 +195,9 @@ export default function OrdersTab() {
                       ₹{order.total || order.total_amount || 0}
                     </span>
                   </td>
-                  <td className="p-4">
+                  <td className="p-4 ">
                     <select
-                      className={`rounded-lg p-2 border-2 font-semibold transition-all duration-300 cursor-pointer focus:ring-2 focus:ring-[#562D1D] focus:outline-none ${
+                      className={`rounded-lg p-2  border-2 font-semibold transition-all duration-300 cursor-pointer focus:ring-2 focus:ring-[#562D1D] focus:outline-none ${
                         order.status === "Delivered"
                           ? "bg-green-50 border-green-300 text-green-700 hover:bg-green-100"
                           : order.status === "Shipped"
@@ -231,6 +231,110 @@ export default function OrdersTab() {
         </div>
       )}
 
+      {/* User Details Modal - Perfectly Centered */}
+{showUserModal && selectedUser && (
+  <div className="fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center z-[9999] p-4">
+    <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md max-h-[90vh] flex flex-col relative animate-in zoom-in-95 duration-200">
+      {/* Header */}
+      <div className="p-6 border-b border-gray-200 bg-gradient-to-r from-[#FAF5ED] to-amber-50 flex items-center justify-between sticky top-0 z-10">
+        <div className="flex items-center gap-3">
+          <div className="w-12 h-12 bg-gradient-to-br from-[#562D1D] to-[#B8860B] rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-md">
+            {selectedUser.contact_name?.charAt(0).toUpperCase() || "U"}
+          </div>
+          <div>
+            <h3 className="text-xl font-bold text-gray-800 leading-tight">
+              {selectedUser.contact_name || "N/A"}
+            </h3>
+            <p className="text-xs text-gray-600 flex items-center gap-1 truncate max-w-[200px]">
+              <Mail className="w-3 h-3" />
+              {selectedUser.contact_email || "N/A"}
+            </p>
+          </div>
+        </div>
+        <button
+          onClick={closeUserModal}
+          className="p-2 hover:bg-gray-200 rounded-lg transition-all duration-200 flex items-center justify-center group hover:scale-105 shadow-sm hover:shadow-md bg-white/80"
+          title="Close (Esc)"
+        >
+          <X className="w-5 h-5 text-gray-500 group-hover:text-gray-700 transition-colors" />
+        </button>
+      </div>
+
+      {/* Scrollable Content */}
+      <div className="flex-1 p-6 overflow-y-auto space-y-5 pb-6 pt-2">
+        {/* Contact Details */}
+        <div className="space-y-3">
+          <h4 className="font-bold text-sm mb-2 flex items-center gap-2 text-gray-800 text-xs uppercase tracking-wide">
+            <Phone className="w-4 h-4 text-[#562D1D]" />
+            Contact
+          </h4>
+          <div className="grid grid-cols-2 gap-3 text-xs">
+            <div className="bg-gray-50 p-3 rounded-lg border hover:border-gray-200 transition-colors">
+              <span className="text-gray-500 block text-[10px] mb-1">Phone</span>
+              <span className="font-semibold text-gray-800 truncate">
+                {selectedUser.phone || "N/A"}
+              </span>
+            </div>
+            <div className="bg-blue-50 p-3 rounded-lg border hover:border-blue-200 transition-colors">
+              <span className="text-blue-600 block text-[10px] mb-1 font-medium">Payment</span>
+              <span className="font-semibold text-blue-800 text-[11px]">
+                {selectedUser.payment_mode || "N/A"}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Address */}
+        <div>
+          <h4 className="font-bold text-sm mb-2 flex items-center gap-2 text-gray-800 text-xs uppercase tracking-wide">
+            <MapPin className="w-4 h-4 text-[#562D1D]" />
+            Address
+          </h4>
+          <div className="bg-amber-50 border-2 border-amber-200 p-4 rounded-xl space-y-1 text-xs leading-tight hover:shadow-sm transition-shadow">
+            <div className="font-semibold text-gray-800 text-sm">{selectedUser.contact_name}</div>
+            <div className="text-gray-700">{selectedUser.address_line1 || "N/A"}</div>
+            {selectedUser.address_line2 && <div className="text-gray-700">{selectedUser.address_line2}</div>}
+            <div className="text-gray-700">
+              {selectedUser.city}, {selectedUser.state || selectedUser.stateName}
+            </div>
+            <div className="text-gray-700 font-medium">
+              {selectedUser.pincode && `PIN - ${selectedUser.pincode}`}
+            </div>
+            <div className="text-xs text-gray-600 italic">{selectedUser.country || "India"}</div>
+          </div>
+        </div>
+
+        {/* Order Summary */}
+        <div>
+          <h4 className="font-bold text-sm mb-3 flex items-center gap-2 text-gray-800 text-xs uppercase tracking-wide">
+            Order #{selectedUser.id}
+          </h4>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-xl border hover:shadow-md transition-all">
+              <span className="text-xs text-blue-600 block mb-2 font-medium">Total Amount</span>
+              <div className="text-lg font-bold text-blue-800">
+                ₹{selectedUser.total || selectedUser.total_amount || 0}
+              </div>
+            </div>
+            <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 p-4 rounded-xl border hover:shadow-md transition-all">
+              <span className="text-xs text-emerald-600 block mb-2 font-medium">Status</span>
+              <span className="font-bold text-sm px-3 py-1.5 bg-white rounded-lg shadow-sm border text-emerald-800">
+                {selectedUser.status}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Close on backdrop click */}
+      <div 
+        className="absolute inset-0 -z-10" 
+        onClick={closeUserModal}
+      />
+    </div>
+  </div>
+)}
+
       <style jsx>{`
         @keyframes fadeInRow {
           from {
@@ -249,6 +353,12 @@ export default function OrdersTab() {
           animation: pulse 1.5s ease-in-out infinite;
           background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
           background-size: 200% 100%;
+        }
+        .line-clamp-2 {
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
         }
       `}</style>
     </div>

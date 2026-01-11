@@ -65,7 +65,7 @@ export default function ImageUploadSection({
               type="file"
               accept="image/*"
               onChange={(e) => handleImageUpload(imgKey, e.target.files[0])}
-              className="w-full px-3 py-2 text-xs placeholder-gray-400 text-gray-800 rounded-xl border-2 border-gray-200 bg-white file:bg-gradient-to-r file:from-[#B8860B] file:to-[#562D1D] file:text-white file:border-0 file:rounded-lg file:px-3 file:py-1 file:cursor-pointer hover:file:from-[#562D1D] hover:file:to-[#B8860B] transition-all"
+              className="w-full px-3 py-2 text-xs placeholder-gray-400 text-gray-800 rounded-xl border-2 border-gray-200 bg-white file:bg-[#562D1D] file:text-white file:border-0 file:rounded-lg file:px-3 file:py-1 file:cursor-pointer hover:file:from-[#562D1D] hover:file:to-[#B8860B] transition-all"
             />
             <input
               type="url"

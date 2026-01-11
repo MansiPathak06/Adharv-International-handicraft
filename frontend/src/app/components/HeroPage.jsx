@@ -164,7 +164,7 @@ setPremiumProducts(filtered.slice(0, 4));
                         {slide.subtitle}
                       </p>
                       <Link href={slide.href}>
-                        <button className="mt-3 sm:mt-4 px-6 sm:px-8 py-2.5 sm:py-3 bg-amber-600 hover:bg-amber-700 text-white text-sm sm:text-base font-semibold rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105">
+                        <button className="mt-3 sm:mt-4 px-6 sm:px-8 py-2.5 sm:py-3 bg-[#562D1D] hover:bg-white hover:text-[#562D1D] text-white text-sm sm:text-base font-semibold rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105">
                           {slide.cta}
                         </button>
                       </Link>
@@ -338,120 +338,75 @@ setPremiumProducts(filtered.slice(0, 4));
             ))}
           </div>
         </section>
+<section className="relative py-6 my-6 overflow-hidden">
+  {/* Animated background */}
+  <div
+    className="absolute inset-0 bg-cover bg-center transform scale-105 transition-transform duration-700 hover:scale-110"
+    style={{
+      backgroundImage:
+        "url(https://i.pinimg.com/736x/c6/0c/2f/c60c2f8faebbb3bf9a36bd0009f1bdea.jpg)",
+    }}
+  />
+  
+  {/* Gradient overlays */}
+  <div className="absolute inset-0 bg-gradient-to-br from-amber-100/80 via-white/70 to-amber-50/80 backdrop-blur-sm" />
+  <div className="absolute inset-0 bg-gradient-to-t from-amber-900/10 via-transparent to-amber-900/10" />
+  
+  {/* Floating particles */}
+  <div
+    className="absolute top-6 left-10 w-2 h-2 bg-amber-500/60 rounded-full animate-bounce shadow-lg shadow-amber-500/50"
+    style={{ animationDuration: "3s" }}
+  />
+  <div
+    className="absolute top-10 right-10 w-2 h-2 bg-yellow-500/50 rounded-full animate-bounce shadow-lg shadow-yellow-500/50"
+    style={{ animationDuration: "4s", animationDelay: "0.5s" }}
+  />
 
-        <section className="relative py-12 sm:py-16 my-10 sm:my-16 overflow-hidden">
-          {/* Animated background with premium overlay */}
-          <div
-            className="absolute inset-0 bg-cover bg-center transform scale-105 transition-transform duration-700 hover:scale-110"
-            style={{
-              backgroundImage:
-                "url(https://i.pinimg.com/736x/c6/0c/2f/c60c2f8faebbb3bf9a36bd0009f1bdea.jpg)",
-            }}
-          />
+  <div className="max-w-3xl mx-auto px-4 relative z-10">
+    <div className="text-center bg-white/95 backdrop-blur-lg rounded-2xl shadow-2xl px-6 py-6 border-2 border-amber-300/60 transform hover:scale-105 transition-all duration-500 hover:shadow-amber-400/40 relative overflow-hidden">
+      {/* Card background patterns */}
+      <div className="absolute inset-0 bg-gradient-to-br from-amber-50/50 via-transparent to-amber-100/30 pointer-events-none" />
+      
+      <div className="relative z-10">
+        {/* Top decorative line */}
+        <div className="flex items-center justify-center gap-2 mb-3">
+          <div className="h-0.5 w-12 bg-gradient-to-r from-transparent via-amber-500 to-amber-600" />
+          <div className="w-1.5 h-1.5 bg-amber-500 rounded-full animate-pulse shadow-lg shadow-amber-500/50" />
+          <div className="h-0.5 w-12 bg-gradient-to-l from-transparent via-amber-500 to-amber-600" />
+        </div>
+        
+        <p className="text-xs sm:text-sm text-gray-700 mb-2 font-semibold tracking-wide">
+          Let the Glow of Brass Illuminate Your Celebrations
+        </p>
+        
+        <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-amber-900 via-amber-600 to-amber-900 bg-clip-text text-transparent mb-4 leading-tight">
+          Sacred Brass Gifting Made<br className="hidden sm:block" />
+          Meaningful, Elegant, & Timeless
+        </h2>
+        
+        {/* Middle decorative element */}
+        <div className="flex items-center justify-center gap-2 mb-4">
+          <div className="h-px w-12 bg-gradient-to-r from-transparent via-amber-400 to-amber-500" />
+          <div className="w-2 h-2 bg-amber-500 rounded-full animate-pulse shadow-lg shadow-amber-500/50" />
+          <div className="h-px w-12 bg-gradient-to-l from-transparent via-amber-400 to-amber-500" />
+        </div>
+        
+        <a href="/newlaunches">
+          <button className="relative px-8 py-3 bg-[#562D1D] text-white text-sm font-bold rounded-xl shadow-2xl shadow-amber-900/40 transition-all duration-300 transform hover:scale-110 hover:shadow-amber-900/60 overflow-hidden group border border-amber-700/50">
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+            <span className="relative z-10 flex items-center gap-2 justify-center tracking-wide">
+              Shop Now
+              <span className="transform group-hover:translate-x-2 transition-transform duration-300">
+                →
+              </span>
+            </span>
+          </button>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
 
-          {/* Multiple premium gradient overlays */}
-          <div className="absolute inset-0 bg-gradient-to-br from-amber-100/80 via-white/70 to-amber-50/80 backdrop-blur-sm" />
-          <div className="absolute inset-0 bg-gradient-to-t from-amber-900/10 via-transparent to-amber-900/10" />
-          <div
-            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-pulse"
-            style={{ animationDuration: "4s" }}
-          />
-
-          {/* Premium floating particles - more visible */}
-          <div
-            className="absolute top-10 left-10 w-3 h-3 bg-amber-500/60 rounded-full animate-bounce shadow-lg shadow-amber-500/50"
-            style={{ animationDuration: "3s" }}
-          />
-          <div
-            className="absolute top-20 right-20 w-4 h-4 bg-yellow-500/50 rounded-full animate-bounce shadow-lg shadow-yellow-500/50"
-            style={{ animationDuration: "4s", animationDelay: "0.5s" }}
-          />
-          <div
-            className="absolute bottom-20 left-1/4 w-3 h-3 bg-amber-600/50 rounded-full animate-bounce shadow-lg shadow-amber-600/50"
-            style={{ animationDuration: "3.5s", animationDelay: "1s" }}
-          />
-          <div
-            className="absolute top-1/2 right-1/4 w-2 h-2 bg-orange-500/60 rounded-full animate-bounce shadow-lg shadow-orange-500/50"
-            style={{ animationDuration: "3.2s", animationDelay: "0.8s" }}
-          />
-
-          {/* Decorative corner elements */}
-          <div className="absolute top-0 left-0 w-40 h-40 bg-gradient-to-br from-amber-400/20 to-transparent rounded-br-full" />
-          <div className="absolute bottom-0 right-0 w-40 h-40 bg-gradient-to-tl from-amber-400/20 to-transparent rounded-tl-full" />
-
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
-            <div className="text-center bg-white/95 backdrop-blur-lg rounded-3xl sm:rounded-[2rem] shadow-2xl px-5 sm:px-10 md:px-12 py-8 sm:py-10 md:py-12 border-2 border-amber-300/60 transform hover:scale-105 transition-all duration-500 hover:shadow-amber-400/40 hover:shadow-3xl relative overflow-hidden">
-              {/* Premium card background patterns */}
-              <div className="absolute inset-0 bg-gradient-to-br from-amber-50/50 via-transparent to-amber-100/30 pointer-events-none" />
-              <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-amber-300/10 to-transparent rounded-full blur-3xl" />
-              <div className="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-tr from-yellow-300/10 to-transparent rounded-full blur-3xl" />
-
-              <div className="relative z-10">
-                {/* Top decorative line - enhanced */}
-                <div className="flex items-center justify-center gap-2 mb-5">
-                  <div className="h-0.5 w-16 bg-gradient-to-r from-transparent via-amber-500 to-amber-600" />
-                  <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 bg-amber-500 rounded-full animate-pulse shadow-lg shadow-amber-500/50" />
-                    <div
-                      className="w-1 h-1 bg-amber-600 rounded-full animate-pulse"
-                      style={{ animationDelay: "0.3s" }}
-                    />
-                  </div>
-                  <div className="h-0.5 w-16 bg-gradient-to-l from-transparent via-amber-500 to-amber-600" />
-                </div>
-
-                <p className="text-sm sm:text-base text-gray-700 mb-3 sm:mb-4 font-semibold animate-fade-in tracking-wide">
-                  Let the Glow of Brass Illuminate Your Celebrations
-                </p>
-
-                <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold bg-gradient-to-r from-amber-900 via-amber-600 to-amber-900 bg-clip-text text-transparent mb-5 sm:mb-8 leading-tight animate-gradient drop-shadow-lg">
-                  Sacred Brass Gifting Made
-                  <br className="hidden sm:block" />
-                  Meaningful, Elegant, & Timeless
-                </h2>
-
-                {/* Middle decorative element */}
-                <div className="flex items-center justify-center gap-2 mb-6">
-                  <div className="w-2 h-2 rotate-45 bg-gradient-to-br from-amber-400 to-amber-600" />
-                  <div className="h-px w-20 bg-gradient-to-r from-transparent via-amber-400 to-amber-500" />
-                  <div className="w-2.5 h-2.5 bg-amber-500 rounded-full animate-pulse shadow-lg shadow-amber-500/50" />
-                  <div className="h-px w-20 bg-gradient-to-l from-transparent via-amber-400 to-amber-500" />
-                  <div className="w-2 h-2 rotate-45 bg-gradient-to-br from-amber-400 to-amber-600" />
-                </div>
-
-                <Link href="/newlaunches">
-                  <button className="relative px-10 sm:px-12 py-4 sm:py-5 bg-[#562D1D] hover:from-amber-800 hover:via-amber-700 hover:to-amber-800 text-white text-sm sm:text-base font-bold rounded-xl shadow-2xl shadow-amber-900/40 transition-all duration-300 transform hover:scale-110 hover:shadow-amber-900/60 overflow-hidden group border border-amber-700/50">
-                    {/* Multiple shimmer layers */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-                    <div
-                      className="absolute inset-0 bg-gradient-to-r from-transparent via-amber-400/20 to-transparent translate-x-full group-hover:-translate-x-full transition-transform duration-1000"
-                      style={{ animationDelay: "0.2s" }}
-                    />
-
-                    {/* Button glow effect */}
-                    <div className="absolute inset-0 bg-[#562D1D] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-                    <span className="relative z-10 flex items-center gap-3 justify-center tracking-wide">
-                      Shop Now
-                      <span className="transform group-hover:translate-x-2 transition-transform duration-300 text-lg">
-                        →
-                      </span>
-                    </span>
-                  </button>
-                </Link>
-
-                {/* Bottom decorative accent */}
-                <div className="flex items-center justify-center gap-1.5 mt-6 opacity-60">
-                  <div className="w-1 h-1 bg-amber-400 rounded-full" />
-                  <div className="w-1.5 h-1.5 bg-amber-500 rounded-full" />
-                  <div className="w-2 h-2 bg-amber-600 rounded-full" />
-                  <div className="w-1.5 h-1.5 bg-amber-500 rounded-full" />
-                  <div className="w-1 h-1 bg-amber-400 rounded-full" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
 
        {/* ✅ ENHANCED Best Sellers Section - Compact & Elegant */}
 <section className="max-w-6xl xl:max-w-7xl mx-auto px-4 sm:px-6 lg:px-16 py-12 sm:py-20">
@@ -568,7 +523,7 @@ setPremiumProducts(filtered.slice(0, 4));
   {bestSellers.length > 0 && (
     <div className="text-center mt-10 sm:mt-12">
       <Link href="/newlaunches">
-        <button className="inline-flex items-center gap-2 px-6 sm:px-8 py-2.5 sm:py-3 bg-gradient-to-r from-[#562D1D] to-[#B8860B] hover:from-[#B8860B] hover:to-[#562D1D] text-white text-sm sm:text-base font-bold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 cursor-pointer border border-[#B8860B]/30">
+        <button className="inline-flex items-center gap-2 px-6 sm:px-8 py-2.5 sm:py-3 bg-[#562D1D] hover:from-[#B8860B] hover:to-[#562D1D] text-white text-sm sm:text-base font-bold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 cursor-pointer border border-[#B8860B]/30">
           <span>View All Best Sellers</span>
           <svg
             className="w-4 h-4 sm:w-5 sm:h-5"

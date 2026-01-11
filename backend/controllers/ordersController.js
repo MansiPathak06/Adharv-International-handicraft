@@ -115,68 +115,116 @@ exports.createOrder = async (req, res) => {
         [orderId, item.product_id, item.name, item.price, item.qty]
       );
     }
+// Send order placed email to admin - COMPLETE RICH TEMPLATE
+try {
+  await transporter.sendMail({
+    from: process.env.EMAIL_USER,
+    to: 'team.zentrixinfotech@gmail.com',
+    subject: `🆕 NEW ORDER #${orderId} - ₹${total} by ${contact_name || user_email}`,
+    html: `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; }
+        .header { background: linear-gradient(135deg, #562D1D 0%, #B8860B 100%); color: white; padding: 2rem; text-align: center; }
+        .order-card { background: #FAF5ED; border: 2px solid #562D1D20; border-radius: 16px; padding: 1.5rem; margin: 1rem 0; }
+        .highlight { background: white; padding: 1rem; border-radius: 12px; border-left: 4px solid #B8860B; margin: 1rem 0; }
+        .status { padding: 0.5rem 1rem; border-radius: 999px; font-weight: bold; color: white; }
+        .status.placed { background: #F59E0B; }
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        th, td { padding: 0.75rem; text-align: left; border-bottom: 1px solid #E5E7EB; }
+        th { background: #FEF3C7; font-weight: 600; color: #92400E; }
+        .total-row td { border-top: 2px solid #562D1D; font-weight: bold; font-size: 1.1em; }
+        .footer { background: #F8FAFC; padding: 1.5rem; text-align: center; font-size: 0.9rem; color: #6B7280; border-top: 1px solid #E5E7EB; }
+        .address-box { background: #F0F9FF; border: 1px solid #0EA5E9; border-radius: 12px; padding: 1.25rem; }
+        h1, h2, h3 { margin: 0 0 0.5rem 0; }
+        ul { padding-left: 1.5rem; }
+      </style>
+    </head>
+    <body>
+      <div class="header">
+        <h1 style="margin: 0; font-size: 2rem;">🆕 NEW ORDER</h1>
+        <p style="margin: 0.5rem 0 0 0; opacity: 0.9;">Order #${orderId}</p>
+      </div>
 
-    // Send order placed email to customer
-    try {
-      const toEmail = contact_email || user_email;
-      await transporter.sendMail({
-        from: process.env.EMAIL_USER,
-        to: toEmail,
-        subject: `Your order #${orderId} has been placed`,
-        html: `
-          <p>Hi ${contact_name || 'there'},</p>
-          <p>Thank you for shopping with us. Your order <strong>#${orderId}</strong> has been placed successfully.</p>
-          <p><strong>Order summary:</strong></p>
-          <ul>
-            ${items
-              .map(
-                (it) =>
-                  `<li>${it.name} (Qty: ${it.qty}) - ₹${it.price}</li>`
-              )
-              .join('')}
-          </ul>
-          <p>Total: <strong>₹${total}</strong></p>
-          <p>Shipping to:<br/>
-             ${(address_line1 || '')} ${(address_line2 || '')}<br/>
-             ${(city || '')} - ${(pincode || '')}, ${(state || '')}, ${(country || 'India')}</p>
-          <p>We will notify you once your order is shipped and delivered. Keep checking your dashboard for further updates!</p>
-          <p>Warm regards,<br/>Adharv International</p>
-        `,
-      });
-    } catch (e) {
-      console.error('Error sending order placed email:', e.message);
-    }
+      <div style="padding: 2rem;">
+        <div class="order-card">
+          <h2 style="color: #562D1D; margin-bottom: 1rem;">👤 Customer Details</h2>
+          <p><strong>Name:</strong> ${contact_name || 'N/A'}</p>
+          <p><strong>Email:</strong> ${contact_email || user_email}</p>
+          <p><strong>Phone:</strong> ${phone || 'N/A'}</p>
+          <p><strong>Payment:</strong> 
+            <span class="status placed">${payment_mode || 'UPI'}</span>
+          </p>
+        </div>
 
-    // Send order placed email to admin
-    try {
-      await transporter.sendMail({
-        from: process.env.EMAIL_USER,
-        to: 'team.zentrixinfotech@gmail.com',
-        subject: `New order #${orderId} placed by ${contact_name || user_email}`,
-        html: `
-          <p>Dear Admin,</p>
-          <p><strong>${contact_name || user_email}</strong> has placed a new order 
-          <strong>#${orderId}</strong>.</p>
-          <p><strong>Total:</strong> ₹${total}</p>
-          <p><strong>Payment mode:</strong> ${payment_mode || 'UPI'}</p>
-          <p><strong>Shipping address:</strong><br/>
-             ${(address_line1 || '')} ${(address_line2 || '')}<br/>
-             ${(city || '')} - ${(pincode || '')}, ${(state || '')}, ${(country || 'India')}</p>
-          <p><strong>Items:</strong></p>
-          <ul>
-            ${items
-              .map(
-                (it) =>
-                  `<li>${it.name} (Qty: ${it.qty}) - ₹${it.price}</li>`
-              )
-              .join('')}
+        <div class="order-card">
+          <h2 style="color: #562D1D; margin-bottom: 1rem;">📍 Delivery Address</h2>
+          <div class="address-box">
+            <div style="font-size: 1.1em; font-weight: 600; margin-bottom: 0.5rem;">${contact_name || 'Customer'}</div>
+            <div>${address_line1 || 'N/A'}</div>
+            ${address_line2 ? `<div>${address_line2}</div>` : ''}
+            <div><strong>${city || 'N/A'}, ${pincode ? pincode : ''}</strong></div>
+            <div>${state || ''}${country ? `, ${country}` : ', India'}</div>
+            ${address ? `<div style="font-style: italic; margin-top: 0.5rem; font-size: 0.95em;">
+              Full: ${address}
+            </div>` : ''}
+          </div>
+        </div>
+
+        <div class="order-card">
+          <h2 style="color: #562D1D; margin-bottom: 1rem;">🛍️ Order Items</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th style="text-align: center;">Qty</th>
+                <th style="text-align: right;">Price</th>
+                <th style="text-align: right;">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${items.map((it, idx) => `
+                <tr style="${idx % 2 === 0 ? 'background: #FEFCE8;' : ''}">
+                  <td style="font-weight: 500;">${it.name}</td>
+                  <td style="text-align: center; font-weight: 600;">${it.qty}</td>
+                  <td style="text-align: right;">₹${parseFloat(it.price || 0).toFixed(2)}</td>
+                  <td style="text-align: right; font-weight: 600; color: #059669;">₹${(parseFloat(it.price || 0) * parseInt(it.qty || 1)).toFixed(2)}</td>
+                </tr>
+              `).join('')}
+              <tr class="total-row">
+                <td colspan="3" style="text-align: right; font-weight: 600; padding-top: 1rem;">GRAND TOTAL</td>
+                <td style="text-align: right; color: #B91C1C; font-size: 1.2em;">₹${parseFloat(total || 0).toFixed(2)}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="highlight">
+          <h3>⚡ Quick Actions</h3>
+          <ul style="margin: 0.5rem 0 0 0; padding-left: 1.5rem;">
+            <li>✅ Update status in <strong>Admin Dashboard → Orders</strong></li>
+            <li>📦 Prepare for shipping</li>
+            <li>📱 Contact customer if needed</li>
           </ul>
-          <p>You can review and update this order from the admin dashboard.</p>
-        `
-      });
-    } catch (e) {
-      console.error('Error sending admin order email:', e.message);
-    }
+        </div>
+
+        <div class="footer">
+          <p>This is an automatic notification from Adharv International.</p>
+          <p>Manage orders at your admin dashboard.</p>
+        </div>
+      </div>
+    </body>
+    </html>
+    `
+  });
+  console.log('✅ Admin notification email sent successfully');
+} catch (e) {
+  console.error('❌ Error sending admin order email:', e.message);
+}
+
 
     res.json({ success: true, order_id: orderId });
   } catch (error) {

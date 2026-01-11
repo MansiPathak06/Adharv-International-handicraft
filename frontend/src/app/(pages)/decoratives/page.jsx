@@ -40,29 +40,44 @@ const DecorativesPage = () => {
         backgroundRepeat: 'no-repeat'
       }}
     >
-      {/* Hero Section */}
-      <section className="relative h-[260px] sm:h-[360px] lg:h-[500px] mt-3 sm:mt-[1%] overflow-hidden flex items-center justify-center">
-        <img
-          src="https://i.pinimg.com/1200x/6e/7c/81/6e7c81ecf6eca1d6a79fe3ce2f1c254e.jpg"
-          alt="Decorative Items Hero"
-          className="w-full h-full object-cover object-center scale-100 hover:scale-105 transition-transform duration-500"
-        />
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-[#ffa50261] via-transparent to-[#b8860bb8] text-white text-center z-10 px-4">
-          <h1 className="text-2xl sm:text-3xl lg:text-6xl font-bold mb-3 sm:mb-6 drop-shadow-xl animate-slideDown">
-            Decorate with Elegance{' '}
-            <span className="text-yellow-400">& Style</span>
-          </h1>
-          <p className="text-sm sm:text-lg lg:text-2xl mb-2 shadow drop-shadow">
-            Transform your space with extraordinary brass decoratives
-          </p>
-          <button
-            onClick={() => router.push('/newlaunches')}
-            className="mt-4 px-6 sm:px-8 py-2.5 sm:py-3 bg-[#b8860b] hover:bg-[#562D1D] text-white text-sm sm:text-base font-semibold rounded-lg shadow-lg animated-pulse transition-all duration-300 hover:scale-105 animate-bounceIn"
-          >
-            Shop New Launches
-          </button>
-        </div>
-      </section>
+    {/* Hero Section */}
+{/* Hero Section */}
+<section className="relative h-[170px] sm:h-[220px] lg:h-[280px] mt-2 overflow-hidden flex items-center justify-center">
+  
+  {/* Background */}
+  <img
+    src="/images/bg-image.jpg"
+    alt="Decorative Items Hero"
+    className="absolute inset-0 w-full h-full object-cover object-center scale-105 transition-transform duration-[5000ms] ease-out hover:scale-110"
+  />
+
+  {/* Overlay */}
+  <div className="absolute inset-0 bg-gradient-to-r from-[#824f3b]/85 via-[#2b140c]/60 to-[#562D1D]/85 z-10"></div>
+
+  {/* Content */}
+  <div className="relative z-20 text-center px-4 animate-fadeIn">
+
+    <h1 className="text-xl sm:text-3xl lg:text-4xl font-light tracking-wide text-white mb-2 leading-tight animate-slideUp">
+      Decorate with  
+      <span className="block font-bold bg-[#562D1D] bg-clip-text text-transparent drop-shadow-md">
+        Elegance & Style
+      </span>
+    </h1>
+
+    <p className="text-[11px] sm:text-sm lg:text-base text-gray-200 max-w-xl mx-auto mb-4 opacity-90 animate-fadeIn delay-200">
+      Premium handcrafted brass décor designed to elevate your living spaces
+    </p>
+
+    <button
+      onClick={() => router.push('/newlaunches')}
+      className="px-5 sm:px-7 py-2 bg-[#562D1D] hover:bg-[#3b1d12] text-white text-xs sm:text-sm font-medium shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 active:scale-95 animate-slideUp delay-300"
+    >
+      Shop New Launches
+    </button>
+
+  </div>
+</section>
+
 
       {/* CTA BANNER: Home Decor */}
       <div

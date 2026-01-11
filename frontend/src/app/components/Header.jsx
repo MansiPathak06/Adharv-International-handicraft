@@ -13,7 +13,9 @@ import {
   ShoppingBag,
   Palette,
   Flower,
-  Leaf
+  Leaf,
+  Menu,
+  X
 } from 'lucide-react';
 import Image from 'next/image';
 
@@ -22,6 +24,7 @@ const Header = () => {
   const router = useRouter();
   const [cartCount, setCartCount] = useState(0);
   const [searchTerm, setSearchTerm] = useState('');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const isActive = (path) => pathname === path;
 
@@ -54,19 +57,20 @@ const Header = () => {
     router.push(`/search?query=${encodeURIComponent(q)}`);
   };
 
+  const handleNavClick = () => {
+    setMobileMenuOpen(false);
+  };
+
   return (
-   <header 
-  className="shadow-lg sticky top-0 z-[1000]"
-  style={{
-    backgroundImage: "url('/images/home-background-img.jpg')",
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat'
-  }}
->
-
-
-
+    <header 
+      className="shadow-lg sticky top-0 z-[1000]"
+      style={{
+        backgroundImage: "url('/images/home-background-img.jpg')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
+    >
       {/* Header Top */}
       <div className="flex items-center px-4 py-2 max-w-[1400px] mx-auto justify-between gap-4 sm:px-6 md:px-8 md:gap-6 lg:px-12 lg:gap-8 flex-wrap">
         {/* Logo */}
@@ -134,8 +138,20 @@ const Header = () => {
       </div>
 
       {/* Navigation Bar */}
-      <nav className="bg-[#562D1D] flex justify-center items-center p-0 shadow-[0_4px_10px_rgba(0,0,0,0.1)] overflow-x-auto">
-        <div className="flex w-full max-w-[1400px] overflow-x-auto no-scrollbar">
+      <nav className="bg-[#562D1D] flex justify-center items-center p-0 shadow-[0_4px_10px_rgba(0,0,0,0.1)] relative">
+        {/* Mobile Navigation Bar - Increased Height */}
+        <div className="md:hidden w-full py-4 flex items-center justify-center bg-[#562D1D]">
+          <button
+            className="absolute left-4 text-white p-2"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex w-full max-w-[1400px] overflow-x-auto no-scrollbar">
           <div className="flex mx-auto">
             <Link
               href="/"
@@ -205,6 +221,72 @@ const Header = () => {
             </Link>
           </div>
         </div>
+
+        {/* Mobile Navigation Dropdown */}
+        {mobileMenuOpen && (
+          <div className="md:hidden absolute top-full left-0 w-full bg-[#562D1D] shadow-lg z-50">
+            <Link
+              href="/"
+              onClick={handleNavClick}
+              className={`text-white no-underline px-6 py-3 text-sm font-medium transition-all duration-300 flex items-center gap-2 border-b border-white/10 hover:bg-white/15 ${
+                isActive('/home') ? 'bg-white/20' : ''
+              }`}
+            >
+              <HomeIcon size={16} />
+              Home
+            </Link>
+            <Link
+              href="/newlaunches"
+              onClick={handleNavClick}
+              className={`text-white no-underline px-6 py-3 text-sm font-medium transition-all duration-300 flex items-center gap-2 border-b border-white/10 hover:bg-white/15 ${
+                isActive('/newlaunches') ? 'bg-white/20' : ''
+              }`}
+            >
+              <Sparkles size={16} />
+              New Launches
+            </Link>
+            <Link
+              href="/decoratives"
+              onClick={handleNavClick}
+              className={`text-white no-underline px-6 py-3 text-sm font-medium transition-all duration-300 flex items-center gap-2 border-b border-white/10 hover:bg-white/15 ${
+                isActive('/gift') ? 'bg-white/20' : ''
+              }`}
+            >
+              <Flower size={16} />
+              All Decoratives
+            </Link>
+            <Link
+              href="/garden-decoratives"
+              onClick={handleNavClick}
+              className={`text-white no-underline px-6 py-3 text-sm font-medium transition-all duration-300 flex items-center gap-2 border-b border-white/10 hover:bg-white/15 ${
+                isActive('/garden-decoratives') ? 'bg-white/20' : ''
+              }`}
+            >
+              <Leaf size={16} />
+              Garden Decoratives
+            </Link>
+            <Link
+              href="/shopsbycollection"
+              onClick={handleNavClick}
+              className={`text-white no-underline px-6 py-3 text-sm font-medium transition-all duration-300 flex items-center gap-2 border-b border-white/10 hover:bg-white/15 ${
+                isActive('/shopsbycollection') ? 'bg-white/20' : ''
+              }`}
+            >
+              <ShoppingBag size={16} />
+              Shop By Collection
+            </Link>
+            <Link
+              href="/lightning"
+              onClick={handleNavClick}
+              className={`text-white no-underline px-6 py-3 text-sm font-medium transition-all duration-300 flex items-center gap-2 hover:bg-white/15 ${
+                isActive('/craft') ? 'bg-white/20' : ''
+              }`}
+            >
+              <Sparkles size={16} />
+              Lightning
+            </Link>
+          </div>
+        )}
       </nav>
     </header>
   );
