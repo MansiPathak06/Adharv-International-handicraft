@@ -42,22 +42,22 @@ const DecorativesPage = () => {
     >
     {/* Hero Section */}
 {/* Hero Section */}
-<section className="relative h-[170px] sm:h-[220px] lg:h-[280px] mt-2 overflow-hidden flex items-center justify-center">
+<section className="relative h-[170px] sm:h-[220px] lg:h-[280px] overflow-hidden flex items-center justify-center">
   
   {/* Background */}
   <img
-    src="/images/bg-image.jpg"
+    src="/images/decoratives-bg.png"
     alt="Decorative Items Hero"
     className="absolute inset-0 w-full h-full object-cover object-center scale-105 transition-transform duration-[5000ms] ease-out hover:scale-110"
   />
 
   {/* Overlay */}
-  <div className="absolute inset-0 bg-gradient-to-r from-[#824f3b]/85 via-[#2b140c]/60 to-[#562D1D]/85 z-10"></div>
+  <div className="absolute inset-0  z-10"></div>
 
   {/* Content */}
   <div className="relative z-20 text-center px-4 animate-fadeIn">
 
-    <h1 className="text-xl sm:text-3xl lg:text-4xl font-light tracking-wide text-white mb-2 leading-tight animate-slideUp">
+    {/* <h1 className="text-xl sm:text-3xl lg:text-4xl font-light tracking-wide text-white mb-2 leading-tight animate-slideUp">
       Decorate with  
       <span className="block font-bold bg-[#562D1D] bg-clip-text text-transparent drop-shadow-md">
         Elegance & Style
@@ -66,14 +66,14 @@ const DecorativesPage = () => {
 
     <p className="text-[11px] sm:text-sm lg:text-base text-gray-200 max-w-xl mx-auto mb-4 opacity-90 animate-fadeIn delay-200">
       Premium handcrafted brass décor designed to elevate your living spaces
-    </p>
+    </p> */}
 
-    <button
+    {/* <button
       onClick={() => router.push('/newlaunches')}
       className="px-5 sm:px-7 py-2 bg-[#562D1D] hover:bg-[#3b1d12] text-white text-xs sm:text-sm font-medium shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 active:scale-95 animate-slideUp delay-300"
     >
       Shop New Launches
-    </button>
+    </button> */}
 
   </div>
 </section>
@@ -86,18 +86,18 @@ const DecorativesPage = () => {
       >
         <div className="relative">
           <img
-            src="https://i.pinimg.com/736x/f9/9c/80/f99c80f30d0677757127f1967cb0df26.jpg"
+            src="/images/banner-bg-decoratives.png"
             alt="Brass Home Decor"
             className="w-full h-40 sm:h-52 object-cover group-hover:opacity-80 transition-opacity duration-400"
           />
           <div className="absolute inset-0 z-10 flex flex-col items-start justify-center px-6 sm:px-12 bg-gradient-to-l from-transparent via-black/30 to-black/60">
-            <h3 className="text-xl sm:text-3xl font-bold text-white mb-1 sm:mb-2 animate-slideRight">
+            {/* <h3 className="text-xl sm:text-3xl font-bold text-white mb-1 sm:mb-2 animate-slideRight">
               Elevate Your Home With Brass
             </h3>
             <p className="text-sm sm:text-lg text-white opacity-90 mb-2 sm:mb-3 transition">
               Discover unique home decor pieces hand-crafted to impress.
-            </p>
-            <button className="text-xs sm:text-base text-amber-900 px-5 sm:px-8 py-2 rounded-lg font-bold bg-white/90 shadow hover:bg-amber-900 hover:text-white transition animate-fadeIn cursor-pointer">
+            </p> */}
+            <button className="text-xs sm:text-base mt-22 text-amber-900 px-5 sm:px-8 py-2 rounded-lg font-bold bg-white/90 shadow hover:bg-amber-900 hover:text-white transition animate-fadeIn cursor-pointer">
               Shop beautiful furniture pieces!
             </button>
           </div>

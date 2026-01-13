@@ -101,22 +101,22 @@ const LightningAccessories = () => {
     <div className="bg-white min-h-screen">
       {/* Banner */}
       <section
-        className="mt-5 relative h-[350px] flex items-center justify-center text-white text-center max-md:h-[250px]"
+        className="relative h-[350px] flex items-center justify-center text-white text-center max-md:h-[250px]"
         style={{
           backgroundImage:
-            'linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(https://i.pinimg.com/1200x/0c/f9/d6/0cf9d6225937881da06c4b864bf0857f.jpg)',
-          backgroundSize: 'cover',
+            'linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(/images/ligtning-accessories-bg.png)',
+          backgroundSize: 'contain',
           backgroundPosition: 'center'
         }}
       >
-        <div>
+        {/* <div>
           <h1 className="text-5xl font-normal mb-2.5 tracking-wide max-md:text-4xl max-sm:text-[28px]">
             Lightning Accessories
           </h1>
           <p className="text-lg font-light max-sm:text-sm">
             Illuminate your space with elegant lighting solutions
           </p>
-        </div>
+        </div> */}
       </section>
 
       {/* Main Container */}

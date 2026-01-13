@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -28,20 +33,20 @@ body {
   color: var(--foreground);
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
                "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  position: relative;
+  overflow-x: hidden;
 }
 
 
-/* Optional: Add overlay for better text readability */
 body::before {
   content: '';
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.85); /* Light overlay */
+  inset: 0;                 /* better than top/left/width/height */
+  background: rgba(255, 255, 255, 0.85);
   z-index: -1;
+  pointer-events: none;     /* important */
 }
+
 
 @media (prefers-color-scheme: dark) {
   body::before {

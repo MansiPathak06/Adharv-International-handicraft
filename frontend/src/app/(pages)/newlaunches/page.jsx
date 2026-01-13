@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { Heart } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import React, { useState, useEffect } from "react";
+import { Heart } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const NewLaunches = () => {
   const [products, setProducts] = useState([]);
   const [favorites, setFavorites] = useState({});
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(5000);
-  const [sortBy, setSortBy] = useState('best-selling');
+  const [sortBy, setSortBy] = useState("best-selling");
   const [isDragging, setIsDragging] = useState(false);
   const [currentHandle, setCurrentHandle] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -22,23 +22,25 @@ const NewLaunches = () => {
     async function fetchProducts() {
       setLoading(true);
       try {
-        const res = await fetch('http://localhost:5000/api/products');
+        const res = await fetch("http://localhost:5000/api/products");
         const data = await res.json();
-        
-        console.log('Products received:', data.products?.length);
+
+        console.log("Products received:", data.products?.length);
         if (data.products && data.products.length > 0) {
-          console.log('First product:', data.products[0]);
-          console.log('Main image URL:', data.products[0].main_image);
+          console.log("First product:", data.products[0]);
+          console.log("Main image URL:", data.products[0].main_image);
         }
-        
+
         let sortedProducts = (data.products || []).sort(
-          (a, b) => (b.id || 0) - (a.id || 0),
+          (a, b) => (b.id || 0) - (a.id || 0)
         );
         setProducts(sortedProducts);
-        
+
         // ✅ FIX: Set min/max based on actual product prices
         if (sortedProducts.length > 0) {
-          const prices = sortedProducts.map((p) => p.price || 0).filter(p => p > 0);
+          const prices = sortedProducts
+            .map((p) => p.price || 0)
+            .filter((p) => p > 0);
           if (prices.length > 0) {
             const actualMin = Math.min(...prices);
             const actualMax = Math.max(...prices);
@@ -47,7 +49,7 @@ const NewLaunches = () => {
           }
         }
       } catch (error) {
-        console.error('Error fetching products:', error);
+        console.error("Error fetching products:", error);
       } finally {
         setLoading(false);
       }
@@ -64,15 +66,15 @@ const NewLaunches = () => {
 
   const getFilteredProducts = () => {
     let filtered = products.filter(
-      (p) => p.price >= minPrice && p.price <= maxPrice,
+      (p) => p.price >= minPrice && p.price <= maxPrice
     );
-    if (sortBy === 'price-low') {
+    if (sortBy === "price-low") {
       filtered = [...filtered].sort((a, b) => a.price - b.price);
-    } else if (sortBy === 'price-high') {
+    } else if (sortBy === "price-high") {
       filtered = [...filtered].sort((a, b) => b.price - a.price);
-    } else if (sortBy === 'discount') {
+    } else if (sortBy === "discount") {
       filtered = [...filtered].sort(
-        (a, b) => (b.discount || 0) - (a.discount || 0),
+        (a, b) => (b.discount || 0) - (a.discount || 0)
       );
     }
     return filtered.slice(0, 18);
@@ -92,16 +94,16 @@ const NewLaunches = () => {
 
   const handleMouseMove = (e) => {
     if (!isDragging || !currentHandle) return;
-    const slider = document.querySelector('.price-slider');
+    const slider = document.querySelector(".price-slider");
     if (!slider) return;
     const rect = slider.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const percent = Math.max(0, Math.min(100, (x / rect.width) * 100));
     const value = Math.round(
-      (percent / 100) * (absoluteMax - absoluteMin) + absoluteMin,
+      (percent / 100) * (absoluteMax - absoluteMin) + absoluteMin
     );
 
-    if (currentHandle === 'min') {
+    if (currentHandle === "min") {
       setMinPrice(Math.min(value, maxPrice));
     } else {
       setMaxPrice(Math.max(value, minPrice));
@@ -115,11 +117,11 @@ const NewLaunches = () => {
 
   useEffect(() => {
     if (isDragging) {
-      window.addEventListener('mousemove', handleMouseMove);
-      window.addEventListener('mouseup', handleMouseUp);
+      window.addEventListener("mousemove", handleMouseMove);
+      window.addEventListener("mouseup", handleMouseUp);
       return () => {
-        window.removeEventListener('mousemove', handleMouseMove);
-        window.removeEventListener('mouseup', handleMouseUp);
+        window.removeEventListener("mousemove", handleMouseMove);
+        window.removeEventListener("mouseup", handleMouseUp);
       };
     }
   }, [isDragging, currentHandle, minPrice, maxPrice]);
@@ -127,45 +129,42 @@ const NewLaunches = () => {
   const filtered = getFilteredProducts();
 
   return (
-    <div 
+    <div
       className="min-h-screen"
       style={{
         backgroundImage: "url('/images/home-background-img.jpg')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundAttachment: 'fixed',
-        backgroundRepeat: 'no-repeat'
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed",
+        backgroundRepeat: "no-repeat",
       }}
     >
       {/* Hero Banner */}
-      <div className="max-w-[1400px] mx-auto mt-4 sm:mt-5 overflow-hidden px-3 sm:px-0">
+      <div className="max-w-[1400px] mx-auto mt-0 overflow-hidden px-3 sm:px-0">
         <div className="relative h-[200px] sm:h-[260px] md:h-[300px] overflow-hidden rounded-lg sm:rounded-none">
           <img
-            src="https://i.pinimg.com/1200x/6c/d9/f7/6cd9f7d4b4749e23a3690f4ff220e68d.jpg"
+            src="/images/newlaunches-bg.png"
             alt="Festive Collection"
             className="w-full h-full object-cover"
           />
           <div className="absolute top-6 sm:top-10 left-1/2 -translate-x-1/2 text-white text-center px-3">
-           <h2
-  className="font-[var(--font-playfair)] text-2xl sm:text-3xl md:text-[55px] font-bold mb-1.5 sm:mb-2.5 border-b-2 border-white inline-block pb-1 sm:pb-1.5"
-  style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}
->
-  New Launches
-</h2>
+            {/* <h2
+              className="font-[var(--font-playfair)] text-2xl sm:text-3xl md:text-[55px] font-bold mb-1.5 sm:mb-2.5 border-b-2 border-white inline-block pb-1 sm:pb-1.5"
+              style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.5)" }}
+            >
+              New Launches
+            </h2>
 
-<p
-  className="font-[var(--font-playfair)] text-md sm:text-md md:text-lg mt-3 leading-relaxed"
-  style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}
->
-  Be the First to Shop <br className="hidden sm:block" />
-  our premium Collection.
-</p>
-
+            <p
+              className="font-[var(--font-playfair)] text-md sm:text-md md:text-lg mt-3 leading-relaxed"
+              style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.5)" }}
+            >
+              Be the First to Shop <br className="hidden sm:block" />
+              our premium Collection.
+            </p> */}
           </div>
         </div>
       </div>
-
-      
 
       {/* Main Container */}
       <div className="max-w-[1400px] mx-auto py-8 sm:py-10 px-3 sm:px-5">
@@ -173,32 +172,31 @@ const NewLaunches = () => {
           New Launches
         </h1>
 
-       {/* Controls Bar */}
-<div className="flex flex-wrap justify-between sm:justify-end items-center mb-6 sm:mb-8 gap-2.5">
-  <span className="text-xs text-gray-500 sm:hidden">
-    {filtered.length} products
-  </span>
-  <div className="flex items-center gap-2.5">
-    <label
-      htmlFor="sortBy"
-      className="text-xs sm:text-sm text-gray-600"
-    >
-      Sort by:
-    </label>
-    <select
-      id="sortBy"
-      value={sortBy}
-      onChange={(e) => setSortBy(e.target.value)}
-      className="py-1.5 sm:py-2 px-2.5 sm:px-3 pr-7 sm:pr-8 border border-gray-300 rounded text-xs sm:text-sm text-gray-800 font-medium bg-white cursor-pointer appearance-none bg-[url('data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%2712%27%20height=%2712%27%20viewBox=%270%200%2012%2012%27%3E%3Cpath%20fill=%27%23333%27%20d=%27M6%209L1%204h10z%27/%3E%3C/svg%3E')] bg-no-repeat bg-[right_8px_center]"
-    >
-      <option value="best-selling">Best selling</option>
-      <option value="price-low">Price: Low to High</option>
-      <option value="price-high">Price: High to Low</option>
-      <option value="discount">Discount</option>
-    </select>
-  </div>
-</div>
-
+        {/* Controls Bar */}
+        <div className="flex flex-wrap justify-between sm:justify-end items-center mb-6 sm:mb-8 gap-2.5">
+          <span className="text-xs text-gray-500 sm:hidden">
+            {filtered.length} products
+          </span>
+          <div className="flex items-center gap-2.5">
+            <label
+              htmlFor="sortBy"
+              className="text-xs sm:text-sm text-gray-600"
+            >
+              Sort by:
+            </label>
+            <select
+              id="sortBy"
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              className="py-1.5 sm:py-2 px-2.5 sm:px-3 pr-7 sm:pr-8 border border-gray-300 rounded text-xs sm:text-sm text-gray-800 font-medium bg-white cursor-pointer appearance-none bg-[url('data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%2712%27%20height=%2712%27%20viewBox=%270%200%2012%2012%27%3E%3Cpath%20fill=%27%23333%27%20d=%27M6%209L1%204h10z%27/%3E%3C/svg%3E')] bg-no-repeat bg-[right_8px_center]"
+            >
+              <option value="best-selling">Best selling</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+              <option value="discount">Discount</option>
+            </select>
+          </div>
+        </div>
 
         {/* Main Content */}
         <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-6 lg:gap-10">
@@ -225,8 +223,8 @@ const NewLaunches = () => {
                       setMinPrice(
                         Math.min(
                           parseInt(e.target.value) || absoluteMin,
-                          maxPrice,
-                        ),
+                          maxPrice
+                        )
                       )
                     }
                     className="w-full py-1.5 sm:py-2 px-2 border border-gray-300 rounded text-xs sm:text-sm text-gray-800"
@@ -247,8 +245,8 @@ const NewLaunches = () => {
                       setMaxPrice(
                         Math.max(
                           parseInt(e.target.value) || absoluteMax,
-                          minPrice,
-                        ),
+                          minPrice
+                        )
                       )
                     }
                     className="w-full py-1.5 sm:py-2 px-2 border border-gray-300 rounded text-xs sm:text-sm text-gray-800"
@@ -268,17 +266,17 @@ const NewLaunches = () => {
                   className="absolute w-[16px] sm:w-[18px] h-[16px] sm:h-[18px] bg-[#562D1D] border-[3px] border-white rounded-full top-1/2 -translate-y-1/2 cursor-pointer shadow-md z-[2] hover:scale-110 transition-transform"
                   style={{
                     left: `${minPercent}%`,
-                    transform: 'translate(-50%, -50%)',
+                    transform: "translate(-50%, -50%)",
                   }}
-                  onMouseDown={(e) => handleSliderDrag(e, 'min')}
+                  onMouseDown={(e) => handleSliderDrag(e, "min")}
                 />
                 <div
                   className="absolute w-[16px] sm:w-[18px] h-[16px] sm:h-[18px] bg-[#562D1D] border-[3px] border-white rounded-full top-1/2 -translate-y-1/2 cursor-pointer shadow-md z-[2] hover:scale-110 transition-transform"
                   style={{
                     left: `${maxPercent}%`,
-                    transform: 'translate(-50%, -50%)',
+                    transform: "translate(-50%, -50%)",
                   }}
-                  onMouseDown={(e) => handleSliderDrag(e, 'max')}
+                  onMouseDown={(e) => handleSliderDrag(e, "max")}
                 />
               </div>
             </div>
@@ -304,14 +302,17 @@ const NewLaunches = () => {
                   >
                     <div className="relative h-60 sm:h-[260px] md:h-[280px] overflow-hidden bg-gray-100 group">
                       <img
-                        src={product.main_image || '/placeholder.png'}
+                        src={product.main_image || "/placeholder.png"}
                         alt={product.name}
                         className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                         loading="lazy"
                         onError={(e) => {
-                          console.error('Image failed to load:', product.main_image);
-                          console.error('Product ID:', product.id);
-                          e.target.src = '/placeholder.png';
+                          console.error(
+                            "Image failed to load:",
+                            product.main_image
+                          );
+                          console.error("Product ID:", product.id);
+                          e.target.src = "/placeholder.png";
                         }}
                       />
                       <button
@@ -320,7 +321,7 @@ const NewLaunches = () => {
                           toggleFavorite(product.id);
                         }}
                         className={`absolute top-3 sm:top-4 right-3 sm:right-4 w-8 h-8 sm:w-9 sm:h-9 rounded-full border-none cursor-pointer flex items-center justify-center shadow-md transition-all duration-300 z-[1] hover:scale-110 ${
-                          favorites[product.id] ? 'bg-red-500' : 'bg-white'
+                          favorites[product.id] ? "bg-red-500" : "bg-white"
                         }`}
                         aria-label="Add to favorites"
                       >
@@ -328,8 +329,8 @@ const NewLaunches = () => {
                           size={18}
                           className={
                             favorites[product.id]
-                              ? 'fill-white stroke-white'
-                              : 'fill-none stroke-gray-600'
+                              ? "fill-white stroke-white"
+                              : "fill-none stroke-gray-600"
                           }
                           strokeWidth={2}
                         />
@@ -343,12 +344,12 @@ const NewLaunches = () => {
                         <span className="text-base sm:text-lg font-semibold text-gray-800">
                           ₹{product.price?.toLocaleString()}
                         </span>
-                        {(product.originalPrice || product.discounted_price) && (
+                        {(product.originalPrice ||
+                          product.discounted_price) && (
                           <span className="text-xs sm:text-sm text-gray-400 line-through">
                             ₹
                             {(
-                              product.originalPrice ||
-                              product.discounted_price
+                              product.originalPrice || product.discounted_price
                             )?.toLocaleString()}
                           </span>
                         )}
@@ -360,7 +361,7 @@ const NewLaunches = () => {
                                   product.price /
                                     (product.originalPrice ||
                                       product.discounted_price ||
-                                      product.price)),
+                                      product.price))
                             )}
                           % off
                         </span>
@@ -378,7 +379,7 @@ const NewLaunches = () => {
       <div className="max-w-[1200px] mx-auto mt-10 sm:mt-14 mb-1 px-3 sm:px-0">
         <div
           className="relative overflow-hidden h-40 sm:h-44 flex items-center group cursor-pointer bg-gradient-to-br from-amber-300 via-amber-400 to-orange-400"
-          onClick={() => router.push('/gift')}
+          onClick={() => router.push("/gift")}
         >
           <img
             src="https://i.pinimg.com/1200x/ed/39/f9/ed39f95ee36ce739ba149cf56079ae23.jpg"

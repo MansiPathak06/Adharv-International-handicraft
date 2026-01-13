@@ -157,47 +157,17 @@ const getFilteredProducts = () => {
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Hero Banner */}
-      <div className="relative w-full max-w-[1400px] mx-auto my-4 sm:my-5 h-[240px] sm:h-[280px] lg:h-[300px] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.15)] rounded-2xl sm:rounded-2xl animate-fadeIn px-3 sm:px-0">
-        <div
-          className="absolute inset-0 rounded-2xl"
-          style={{
-            padding: '12px',
-            background:
-              'repeating-linear-gradient(45deg, #562D1D, #562D1D 10px, #b8860b 10px, #b8860b 20px)',
-          }}
-        >
-          <div className="w-full h-full grid grid-cols-3 gap-0 max-[860px]:grid-cols-1 max-[860px]:gap-4">
-            {/* Left Image */}
-            <div className="relative overflow-hidden rounded-l-2xl max-[860px]:rounded-2xl max-[860px]:h-[180px] group">
-              <img
-                src="https://i.pinimg.com/736x/f9/9c/80/f99c80f30d0677757127f1967cb0df26.jpg"
-                alt="Brass DECOR"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-            </div>
-            {/* Center Text */}
-            <div className="bg-gradient-to-br from-[#5c3a21] to-[#3d2817] flex items-center justify-center flex-col text-white px-4 sm:px-5 text-center max-[860px]:rounded-2xl max-[860px]:py-6">
-              <h1
-                className="text-2xl sm:text-3xl lg:text-5xl font-light max-[860px]:text-[32px] animate-slideUp"
-                style={{
-                  fontFamily: 'Georgia, serif',
-                  textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
-                }}
-              >
-                Shop By Collection
-              </h1>
-            </div>
-            {/* Right Image */}
-            <div className="relative overflow-hidden rounded-r-2xl max-[860px]:rounded-2xl max-[860px]:h-[180px] group">
-              <img
-                src="https://i.pinimg.com/736x/08/52/a3/0852a34ffe2b7b5c0131796c9b899611.jpg"
-                alt="Brass Home Decor"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+      
+<div className="relative w-full max-w-[1400px] mx-auto mt-0 mb-6 sm:mb-8 h-[240px] sm:h-[280px] lg:h-[300px] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.15)] animate-fadeIn">
+  <div
+    className="absolute inset-0"
+    style={{
+      backgroundImage: 'url(/images/shopsbycollection-bg.png)',
+      backgroundSize: 'contain'
+    }}
+  />
+</div>
+
 
       {/* Main Container */}
       <div className="max-w-[1400px] mx-auto py-8 sm:py-10 px-3 sm:px-5">

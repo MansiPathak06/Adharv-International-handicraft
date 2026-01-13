@@ -121,104 +121,18 @@ const GardenAccessories = () => {
       }}
     >
      {/* Hero Banner */}
-<div className="relative w-full max-w-[1400px] mx-auto my-4 sm:my-6 h-[220px] sm:h-[260px] lg:h-[320px] overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.2)] rounded-3xl px-3 sm:px-0">
+<div className="relative w-full max-w-[1400px] mx-auto mt-0 mb-6 sm:mb-8 h-[220px] sm:h-[260px] lg:h-[320px] overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.2)]">
   {/* Background Image */}
   <div 
     className="absolute inset-0 bg-cover bg-center"
     style={{
-      backgroundImage: 'url(https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=80&w=2000)',
+      backgroundImage: 'url(/images/garden-decoratives-bg.png)',
     }}
   >
-    <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-black/60"></div>
+    <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-black/10 to-black/40"></div>
   </div>
 
-  {/* Content Container */}
-  <div className="relative h-full flex items-center justify-between px-4 sm:px-8 lg:px-12">
-    
-    {/* Left Side - Garden Image */}
-    <div className="hidden lg:flex w-[28%] h-[75%] relative group">
-      <div className="w-full h-full rounded-2xl overflow-hidden shadow-2xl border-4 border-white/20 backdrop-blur-sm">
-        <img
-          src="https://i.pinimg.com/736x/d9/70/15/d970157b6cae9e5b1a6cf8a3a4fb592f.jpg"
-          alt="Beautiful Garden"
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-green-900/50 to-transparent"></div>
-      </div>
-      {/* Decorative leaf accent */}
-      <div className="absolute -top-6 -left-6 w-20 h-20 opacity-30">
-        <svg viewBox="0 0 100 100" className="fill-green-300">
-          <path d="M50,10 Q70,30 60,50 Q50,70 50,90 Q50,70 40,50 Q30,30 50,10 Z" />
-        </svg>
-      </div>
-    </div>
-
-    {/* Center - Text and Button */}
-    <div className="flex-1 flex items-center justify-center flex-col text-center px-4 sm:px-8 lg:px-12 py-8">
-      {/* Decorative top element */}
-      <div className="mb-4 flex items-center gap-2 opacity-80">
-        <div className="w-12 h-[2px] bg-gradient-to-r from-transparent to-amber-400"></div>
-        <svg className="w-6 h-6 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-        </svg>
-        <div className="w-12 h-[2px] bg-gradient-to-l from-transparent to-amber-400"></div>
-      </div>
-
-      <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold mb-3 sm:mb-4 text-white drop-shadow-2xl font-serif tracking-wide">
-        Garden Decoratives
-      </h1>
-      
-      <p className="mb-6 sm:mb-8 text-white/90 text-base sm:text-lg lg:text-xl font-medium max-w-xl leading-relaxed drop-shadow-lg">
-        Transform your outdoor sanctuary with elegant accents and timeless beauty
-      </p>
-
-      <button
-        className="group relative px-8 sm:px-10 lg:px-12 py-3 sm:py-4 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white text-base sm:text-lg font-bold rounded-full shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(251,191,36,0.5)] overflow-hidden"
-        onClick={() => router.push('/newlaunches')}
-      >
-        <span className="relative z-10 flex items-center gap-2">
-          Explore New Launches
-          <svg className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-        </span>
-        <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
-      </button>
-
-      {/* Decorative bottom element */}
-      <div className="mt-6 flex items-center gap-3 opacity-70">
-        <div className="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></div>
-        <div className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" style={{animationDelay: '0.2s'}}></div>
-        <div className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" style={{animationDelay: '0.4s'}}></div>
-      </div>
-    </div>
-
-    {/* Right Side - Decorative Image */}
-    <div className="hidden lg:flex w-[28%] h-[75%] relative group">
-      <div className="w-full h-full rounded-2xl overflow-hidden shadow-2xl border-4 border-white/20 backdrop-blur-sm">
-        <img
-          src="https://i.pinimg.com/1200x/41/8b/13/418b1389db5c9d6d50c75f566ea4b8ef.jpg"
-          alt="Garden Decoratives"
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-amber-900/50 to-transparent"></div>
-      </div>
-      {/* Decorative flower accent */}
-      <div className="absolute -bottom-6 -right-6 w-24 h-24 opacity-30">
-        <svg viewBox="0 0 100 100" className="fill-amber-300">
-          <circle cx="50" cy="50" r="8" />
-          <circle cx="50" cy="30" r="12" />
-          <circle cx="70" cy="50" r="12" />
-          <circle cx="50" cy="70" r="12" />
-          <circle cx="30" cy="50" r="12" />
-          <circle cx="35" cy="35" r="10" />
-          <circle cx="65" cy="35" r="10" />
-          <circle cx="65" cy="65" r="10" />
-          <circle cx="35" cy="65" r="10" />
-        </svg>
-      </div>
-    </div>
-  </div>
+  
 
   {/* Floating particles effect */}
   <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -228,7 +142,7 @@ const GardenAccessories = () => {
   </div>
 </div>
       {/* CTA Banner for garden decor */}
-      <div
+      {/* <div
         className="max-w-[1100px] mx-auto my-10 sm:my-12 rounded-2xl shadow-lg overflow-hidden group cursor-pointer relative animate-fadeInUp px-3 sm:px-0"
         onClick={() => router.push('/garden-decor')}
       >
@@ -252,7 +166,7 @@ const GardenAccessories = () => {
             </Link>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Main Container */}
       <div className="max-w-[1400px] mx-auto py-8 sm:py-10 px-3 sm:px-5">

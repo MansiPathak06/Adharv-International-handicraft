@@ -62,17 +62,16 @@ const Header = () => {
   };
 
   return (
-    <header 
-      className="shadow-lg sticky top-0 z-[1000]"
-      style={{
-        backgroundImage: "url('/images/home-background-img.jpg')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat'
-      }}
-    >
+   <header className="sticky top-0 z-[1000] bg-[#f3efe9]">
+
       {/* Header Top */}
-      <div className="flex items-center px-4 py-2 max-w-[1400px] mx-auto justify-between gap-4 sm:px-6 md:px-8 md:gap-6 lg:px-12 lg:gap-8 flex-wrap">
+      <div className="flex items-center px-4 py-2 max-w-[1400px] mx-auto justify-between gap-4 sm:px-6 md:px-8 md:gap-6 lg:px-12 lg:gap-8 flex-wrap"
+       style={{
+    backgroundImage: "url('/images/home-background-img.jpg')",
+    backgroundSize: "cover",
+    backgroundPosition: "center"
+  }}
+      >
         {/* Logo */}
         <Link href="/">
           <div className="flex flex-col cursor-pointer transition-transform duration-300 hover:-translate-y-0.5">
@@ -138,7 +137,7 @@ const Header = () => {
       </div>
 
       {/* Navigation Bar */}
-      <nav className="bg-[#562D1D] flex justify-center items-center p-0 shadow-[0_4px_10px_rgba(0,0,0,0.1)] relative">
+      <nav className="bg-[#562D1D] shadow-none">
         {/* Mobile Navigation Bar - Increased Height */}
         <div className="md:hidden w-full py-4 flex items-center justify-center bg-[#562D1D]">
           <button
